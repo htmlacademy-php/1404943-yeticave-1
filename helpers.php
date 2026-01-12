@@ -171,5 +171,5 @@ function getTimeRemaining(string $date): array
     $totalHours = ($diff->days * 24) + $diff->h;
     $totalHours = str_pad($totalHours, 2, '0', STR_PAD_LEFT);
     $minutes = str_pad($diff->i, 2, '0', STR_PAD_LEFT);
-    return [$totalHours,$minutes];
+    return [$totalHours, $minutes];
 }
