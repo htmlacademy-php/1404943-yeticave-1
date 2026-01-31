@@ -156,3 +156,44 @@ function showError404(array $categories, $user): void
     http_response_code(404);
     exit();
 }
+
+function buildPaginationLink(int $page): string
+{
+    // Копируем текущие GET-параметры
+    $params = $_GET;
+
+    // Добавляем/обновляем параметр page
+    $params['page'] = $page;
+
+    // Формируем query string
+    return '?' . http_build_query($params);
+}
+
+/**
+ * Форматирует прошедшее время в читаемый вид.
+ * Если прошло больше часа - возвращает дату
+ *
+ * @param string $datetime Дата в формате 'Y-m-d H:i:s'
+ * @return string Отформатированная строка времени
+ */
+function formatElapsedTime(string $datetime): string
+{
+    $now = new DateTime();
+    $past = new DateTime($datetime);
+    $interval = $now->diff($past);
+
+    // Вычисляем общее количество часов
+    $totalHours = ($interval->days * 24) + $interval->h;
+    if ($totalHours > 0) {
+        return $past->format('d.m.Y в H:i');
+    }
+
+    $minutes = $interval->i;
+    $word = getNounPluralForm(
+        $minutes,
+        'минуту',
+        'минуты',
+        'минут'
+    );
+    return $minutes . ' ' . $word . ' назад';
+}

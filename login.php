@@ -15,11 +15,13 @@ if ($user ?? false) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $required = ['email', 'password'];
     $errors = [];
+
     $formInputs = filter_input_array(INPUT_POST,
         [
             'email' => FILTER_DEFAULT,
             'password' => FILTER_DEFAULT
         ]);
+
     $rules = [
         'email' => function ($value) {
             return validateEmail($value);

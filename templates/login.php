@@ -4,7 +4,7 @@
  * @var array $formInputs
  */
 ?>
-<form class="form container <?= !empty($errors) ? 'form--invalid' : '' ?>" action="login.php" method="post">
+<form class="form <?= !empty($errors) ? 'form--invalid' : '' ?>" action="login.php" method="post">
     <h2>Вход</h2>
     <div class="form__item <?= getErrorClass($errors, 'email'); ?>">
         <label for="email">E-mail <sup>*</sup></label>

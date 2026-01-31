@@ -21,7 +21,8 @@ $title = $lot['title'];
 $content = includeTemplate('lot.php',
     [
         'lot' => $lot,
-        'bets' => $bets
+        'bets' => $bets,
+        'user' => $user
     ]);
 
 $menu = includeTemplate('menu.php', [
