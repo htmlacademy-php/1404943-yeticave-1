@@ -60,7 +60,6 @@ function connectDB(array $config): mysqli
 
     if (!$con) {
         error_log(mysqli_connect_error());
-        http_response_code(500);
         die("Внутренняя ошибка сервера");
     }
 
@@ -74,7 +73,6 @@ function getCategories(mysqli $con): array|false
     $result = mysqli_query($con, $sql);
     if (!$result) {
         error_log(mysqli_error($con));
-        http_response_code(500);
         die("Внутренняя ошибка сервера");
     }
     return mysqli_fetch_all($result, MYSQLI_ASSOC) ?? false;
@@ -94,13 +92,12 @@ FROM lots l
        JOIN categories c ON l.category_id = c.id
        LEFT JOIN bets b ON l.id = b.lot_id
 WHERE l.end_at > NOW()
-GROUP BY l.id, l.created_at
-ORDER BY l.created_at DESC';
+GROUP BY l.id, l.end_at
+ORDER BY l.end_at DESC limit 6';
 
     $result = mysqli_query($con, $sql);
     if (!$result) {
         error_log(mysqli_error($con));
-        http_response_code(500);
         die("Внутренняя ошибка сервера");
     }
 
@@ -120,7 +117,6 @@ function getLotById(mysqli $con, int $lotId): array|false
     $result = mysqli_query($con, $sql);
     if (!$result) {
         error_log(mysqli_error($con));
-        http_response_code(500);
         die("Внутренняя ошибка сервера");
     }
     $lot = mysqli_fetch_assoc($result);
@@ -139,7 +135,6 @@ function getBetsByLotID(mysqli $con, $lotId): array|false
     $result = mysqli_query($con, $sql);
     if (!$result) {
         error_log(mysqli_error($con));
-        http_response_code(500);
         die("Внутренняя ошибка сервера");
     }
     return mysqli_fetch_all($result, MYSQLI_ASSOC);

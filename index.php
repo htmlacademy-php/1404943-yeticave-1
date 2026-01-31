@@ -15,7 +15,7 @@ mysqli_close($con);
 $menu = includeTemplate('promo.php', [
     'categories' => $categories,
 ]);
-$content = includeTemplate('lots.php', [
+$content = includeTemplate('lots-list.php', [
     'lots' => $lots,
     'title' => 'Открытые лоты'
 ]);
