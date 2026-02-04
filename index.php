@@ -12,7 +12,10 @@ $lots = getLots($con);
 
 mysqli_close($con);
 
-$menu = includeTemplate('promo.php', [
+$menu = includeTemplate('menu.php', [
+    'categories' => $categories,
+]);
+$promo = includeTemplate('promo.php', [
     'categories' => $categories,
 ]);
 $content = includeTemplate('lots-list.php', [
@@ -26,5 +29,6 @@ print includeTemplate('layout.php', [
     'menu' => $menu,
     'categories' => $categories,
     'content' => $content,
+    'promo' => $promo,
     'isMain' => true
 ]);
