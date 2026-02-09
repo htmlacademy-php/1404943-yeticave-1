@@ -38,7 +38,6 @@ if ($lots) {
             'baseUrl' => $baseUrl,
             'lot' => $lot
             ]);
-            var_dump($lot);
             $email = new Email()
                 ->from('keks@phpdemo.ru')
                 ->to($winner['email'])
