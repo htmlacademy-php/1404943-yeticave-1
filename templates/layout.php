@@ -45,7 +45,7 @@
                 <?php
                 if ($user ?? false) : ?>
                     <div class="user-menu__logged">
-                        <p><?= htmlspecialchars($user['name']); ?></p>
+                        <p><?= htmlspecialchars($user['name']) ?? ''; ?></p>
                         <a class="user-menu__bets" href="/my-bets.php">Мои ставки</a>
                         <a class="user-menu__logout" href="/logout.php">Выход</a>
                     </div>

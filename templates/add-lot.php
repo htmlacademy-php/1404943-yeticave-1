@@ -22,9 +22,9 @@
                 <option>Выберите категорию</option>
                 <?php
                 foreach ($categories as $category) : ?>
-                    <option value="<?= $category['id']; ?>"
+                    <option value="<?= $category['id'] ?? ''; ?>"
                         <?= $category['id'] === ($formInputs['category'] ?? '') ? 'selected' : ''; ?>>
-                        <?= htmlspecialchars($category['title']); ?>
+                        <?= htmlspecialchars($category['title']) ?? ''; ?>
                     </option>
                     <?php
                 endforeach; ?>
