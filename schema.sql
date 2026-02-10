@@ -18,7 +18,7 @@ CREATE TABLE users
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   email      VARCHAR(80) NOT NULL,
   name       VARCHAR(80) NOT NULL,
-  password   CHAR(60)    NOT NULL,
+  password   CHAR(255)   NOT NULL,
   contacts   TEXT        NOT NULL,
   UNIQUE INDEX idx_email (email)
 );

@@ -21,7 +21,23 @@ function isDateValid(string $date): bool
 
     return $dateTimeObj !== false && !date_get_last_errors();
 }
-
+/**
+ * Валидирует идентификатор категории на соответствие списку допустимых значений
+ *
+ * Проверяет, что переданный идентификатор категории присутствует в предоставленном
+ * массиве допустимых категорий. Используется для валидации выбора категории в формах.
+ *
+ * @param string $id Идентификатор категории для проверки (обычно строка или числовой ID в виде строки)
+ * @param array $categories Массив допустимых категорий. Ожидается массив значений,
+ *                          с которыми будет сравниваться $id через строгое сравнение (===).
+ *                          Пример: ['1', '2', '3'] или ['electronics', 'books', 'clothing']
+ *
+ * @return string|null Возвращает строку с сообщением об ошибке, если валидация не пройдена,
+ *                     или null, если валидация успешна.
+ *                     Примеры возвращаемых значений:
+ *                     - "Выберите категорию из списка" (при ошибке)
+ *                     - null (при успешной валидации)
+ */
 function validateCategory(string $id, array $categories): ?string
 {
     if (!in_array($id, $categories)) {
@@ -76,15 +92,13 @@ function validateTextLength(string $value, int $min = 0, int $max = 0): ?string
 {
     $length = mb_strlen($value);
 
-    if ($max === 0 && $length < $min) {
-        return "Минимальная длина — $min символов.";
+    if ($max === 0) {
+        return $length < $min ? "Минимальная длина — $min символов." : null;
     }
 
-    if ($max > 0 && ($length < $min || $length > $max)) {
-        return "Длина должна быть от $min до $max символов.";
-    }
-
-    return null;
+    return ($length < $min || $length > $max)
+        ? "Длина должна быть от $min до $max символов."
+        : null;
 }
 
 /**

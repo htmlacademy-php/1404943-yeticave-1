@@ -9,8 +9,8 @@
     <?php if (!empty($bets)) : ?>
         <table class="rates__list">
             <?php foreach ($bets as $bet) :
-                [$hours, $minutes] = getTimeRemaining($bet['end_at']);
-                [$message, $modifier] = getBetStatus($hours, $minutes, $bet['winner_id'], $user['id']);
+                [$hours, $minutes] = getTimeRemaining($bet['end_at'] ?? '');
+                [$message, $modifier] = getBetStatus($hours, $minutes, $bet['winner_id'] ?? '', $user['id'] ?? '');
                 ?>
                 <tr class="rates__item <?= $modifier === '' || $modifier === 'finishing' ? '' : 'rates__item--' . $modifier; ?>">
                     <td class="rates__info">
@@ -19,10 +19,10 @@
                         </div>
                         <div>
                             <h3 class="rates__title"><a
-                                    href="/lot.php?id=<?= $bet['lot_id']; ?>"><?= htmlspecialchars($bet['title']); ?></a>
+                                    href="/lot.php?id=<?= $bet['lot_id'] ?? ''; ?>"><?= htmlspecialchars($bet['title'] ?? ''); ?></a>
                             </h3>
                             <?php if ($modifier === 'win') : ?>
-                                <p><?= $bet['contacts']; ?></p>
+                                <p><?= $bet['contacts'] ?? ''; ?></p>
                             <?php endif; ?>
                         </div>
                     </td>

@@ -27,16 +27,13 @@ function dbGetPrepareStmt(mysqli $link, string $sql, array $data = []): mysqli_s
 
             if (is_int($value)) {
                 $type = 'i';
-            } elseif (is_string($value)) {
-                $type = 's';
             } elseif (is_double($value)) {
                 $type = 'd';
             }
 
-            if ($type) {
-                $types .= $type;
-                $stmtData[] = $value;
-            }
+
+            $types .= $type;
+            $stmtData[] = $value;
         }
 
         $values = array_merge([$stmt, $types], $stmtData);
@@ -312,7 +309,8 @@ function getCategoryById(mysqli $con, int $categoryId): array|false
 function addLot(mysqli $con, array $formInputs, array $user): void
 {
     $formInputs['author_id'] = $user['id'];
-    $sql = "INSERT INTO lots (title, category_id, description, price_start, price_step, end_at, img_url, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO lots (title, category_id, description, price_start, price_step, end_at, img_url, author_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = dbGetPrepareStmt($con, $sql, $formInputs);
     $res = mysqli_stmt_execute($stmt);
     if ($res) {

@@ -39,14 +39,14 @@ $paginationBlock = includeTemplate('pagination.php', [
 ]);
 
 $content = includeTemplate('categories.php', [
-    'title' => $category['title'],
+    'title' => $category['title'] ?? '',
     'lotsBlock' => $lotsBlock,
     'pagination' => $paginationBlock,
     'lots' => $lots ?? []
 ]);
 
 print includeTemplate('layout.php', [
-    'titlePage' => 'Главная',
+    'titlePage' => 'Категория ' . $category['title'] ?? '' . '',
     'user' => $user,
     'menu' => $menu,
     'categories' => $categories,

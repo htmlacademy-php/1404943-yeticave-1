@@ -32,7 +32,7 @@ $lots = getFinishedLotsWithBets($con);
 if ($lots) {
     if (updateLotsWinnersFromArray($con, $lots) > 0) {
         foreach ($lots as $lot) {
-            $winner = getUsersById($con, $lot['winner_id']);
+            $winner = getUsersById($con, $lot['winner_id'] ?? '');
             $emailContent = includeTemplate('email.php', [
             'winner' => $winner,
             'baseUrl' => $baseUrl,
@@ -41,7 +41,7 @@ if ($lots) {
             var_dump($lot);
             $email = new Email()
                 ->from('keks@phpdemo.ru')
-                ->to($winner['email'])
+                ->to($winner['email'] ?? '')
                 ->subject('Ваша ставка победила')
                 ->text('Текстовое содержимое')
                 ->html($emailContent);
